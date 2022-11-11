@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Core\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +13,6 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('index.twig');
+        return $this->render('Home/index.twig');
     }
 }
