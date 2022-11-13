@@ -10,7 +10,7 @@
             "type": "php",
             "request": "launch",
             "port": 9003,
-            "runtimeExecutable": "C:\\xampp\\php-8.1.12\\php.exe"
+            //"runtimeExecutable": "C:\\xampp\\php-8.1.12\\php.exe"
         },
         {
             "name": "Launch currently open script",
