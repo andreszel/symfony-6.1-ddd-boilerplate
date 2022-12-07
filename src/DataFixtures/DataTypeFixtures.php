@@ -8,9 +8,9 @@ use Doctrine\Persistence\ObjectManager;
 
 class DataTypeFixtures extends Fixture
 {
-    public const TYPE_1_REFERENCE = 'type_1';
-    public const TYPE_2_REFERENCE = 'type_2';
-    public const TYPE_3_REFERENCE = 'type_3';
+    public const TYPE_DATA_CONTACT_REFERENCE = 'type_data_contact';
+    public const TYPE_DATA_INVOICE_REFERENCE = 'type_data_invoice';
+    public const TYPE_DATA_TECHNICAL_REFERENCE = 'type_data_technical';
 
     public function load(ObjectManager $manager): void
     {
@@ -18,13 +18,9 @@ class DataTypeFixtures extends Fixture
         $dataType1->setName('Dane kontaktowe');
         $manager->persist($dataType1);
 
-        $manager->flush();
-
         $dataType2 = new DataType();
         $dataType2->setName('Dane do faktury');
         $manager->persist($dataType2);
-
-        $manager->flush();
 
         $dataType3 = new DataType();
         $dataType3->setName('Dane techniczne');
@@ -32,8 +28,8 @@ class DataTypeFixtures extends Fixture
 
         $manager->flush();
 
-        $this->addReference(self::TYPE_1_REFERENCE, $dataType1);
-        $this->addReference(self::TYPE_2_REFERENCE, $dataType2);
-        $this->addReference(self::TYPE_3_REFERENCE, $dataType3);
+        $this->addReference(self::TYPE_DATA_CONTACT_REFERENCE, $dataType1);
+        $this->addReference(self::TYPE_DATA_INVOICE_REFERENCE, $dataType2);
+        $this->addReference(self::TYPE_DATA_TECHNICAL_REFERENCE, $dataType3);
     }
 }

@@ -18,12 +18,16 @@ class Owner
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'ownerId', targetEntity: OwnerData::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: OwnerData::class, orphanRemoval: true)]
     private Collection $ownerData;
+
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: User::class)]
+    private Collection $users;
 
     public function __construct()
     {
         $this->ownerData = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -55,7 +59,7 @@ class Owner
     {
         if (!$this->ownerData->contains($ownerData)) {
             $this->ownerData->add($ownerData);
-            $ownerData->setOwnerId($this);
+            $ownerData->setOwner($this);
         }
 
         return $this;
@@ -65,8 +69,38 @@ class Owner
     {
         if ($this->ownerData->removeElement($ownerData)) {
             // set the owning side to null (unless already changed)
-            if ($ownerData->getOwnerId() === $this) {
-                $ownerData->setOwnerId(null);
+            if ($ownerData->getOwner() === $this) {
+                $ownerData->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getOwner() === $this) {
+                $user->setOwner(null);
             }
         }
 

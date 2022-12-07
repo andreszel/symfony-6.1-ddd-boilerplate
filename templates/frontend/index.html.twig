@@ -2,4 +2,10 @@
 
 {% block body %}
 	Homepage twig
+
+	<a href="/{{ app.user ? 'logout' : 'login' }}">{{ app.user ? 'Wyloguj się' : 'Zaloguj się' }}</a>
+
+	{% if app.user %}
+		<p>AUTHENTICATED OK - jesteś zalogowany</p>
+	{% endif %}
 {% endblock %}

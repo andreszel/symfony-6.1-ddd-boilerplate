@@ -19,7 +19,7 @@ class OwnerData
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 255)]
@@ -31,31 +31,29 @@ class OwnerData
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $province = null;
-
-    #[ORM\Column(length: 40, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $nip = null;
 
-    #[ORM\Column(length: 40, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $regon = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $phone1 = null;
+    #[ORM\Column(nullable: true)]
+    private array $phone = [];
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $phone2 = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $email = null;
 
     #[ORM\ManyToOne(inversedBy: 'ownerData')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Owner $ownerId = null;
+    private ?Owner $owner = null;
 
     #[ORM\ManyToOne(inversedBy: 'ownerData')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?DataType $dataTypeId = null;
+    private ?DataType $dataType = null;
+
+    #[ORM\ManyToOne(inversedBy: 'ownerData')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Province $province = null;
 
     public function getId(): ?int
     {
@@ -91,7 +89,7 @@ class OwnerData
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): self
+    public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
 
@@ -134,24 +132,12 @@ class OwnerData
         return $this;
     }
 
-    public function getProvince(): ?string
-    {
-        return $this->province;
-    }
-
-    public function setProvince(?string $province): self
-    {
-        $this->province = $province;
-
-        return $this;
-    }
-
     public function getNip(): ?string
     {
         return $this->nip;
     }
 
-    public function setNip(?string $nip): self
+    public function setNip(string $nip): self
     {
         $this->nip = $nip;
 
@@ -163,33 +149,21 @@ class OwnerData
         return $this->regon;
     }
 
-    public function setRegon(?string $regon): self
+    public function setRegon(string $regon): self
     {
         $this->regon = $regon;
 
         return $this;
     }
 
-    public function getPhone1(): ?string
+    public function getPhone(): array
     {
-        return $this->phone1;
+        return $this->phone;
     }
 
-    public function setPhone1(?string $phone1): self
+    public function setPhone(?array $phone): self
     {
-        $this->phone1 = $phone1;
-
-        return $this;
-    }
-
-    public function getPhone2(): ?string
-    {
-        return $this->phone2;
-    }
-
-    public function setPhone2(?string $phone2): self
-    {
-        $this->phone2 = $phone2;
+        $this->phone = $phone;
 
         return $this;
     }
@@ -199,33 +173,45 @@ class OwnerData
         return $this->email;
     }
 
-    public function setEmail(?string $email): self
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
 
-    public function getOwnerId(): ?Owner
+    public function getOwner(): ?Owner
     {
-        return $this->ownerId;
+        return $this->owner;
     }
 
-    public function setOwnerId(?Owner $ownerId): self
+    public function setOwner(?Owner $owner): self
     {
-        $this->ownerId = $ownerId;
+        $this->owner = $owner;
 
         return $this;
     }
 
-    public function getDataTypeId(): ?DataType
+    public function getDataType(): ?DataType
     {
-        return $this->dataTypeId;
+        return $this->dataType;
     }
 
-    public function setDataTypeId(?DataType $dataTypeId): self
+    public function setDataType(?DataType $dataType): self
     {
-        $this->dataTypeId = $dataTypeId;
+        $this->dataType = $dataType;
+
+        return $this;
+    }
+
+    public function getProvince(): ?Province
+    {
+        return $this->province;
+    }
+
+    public function setProvince(?Province $province): self
+    {
+        $this->province = $province;
 
         return $this;
     }
