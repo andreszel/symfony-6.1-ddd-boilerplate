@@ -1,11 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-	Homepage twig
+	<h1>Gym System Pro ver. 2.0</h1>
 
 	<a href="/{{ app.user ? 'logout' : 'login' }}">{{ app.user ? 'Wyloguj się' : 'Zaloguj się' }}</a>
 
 	{% if app.user %}
-		<p>AUTHENTICATED OK - jesteś zalogowany</p>
+		<h3>AUTHENTICATED OK - You are logged as
+			{{ app.user.email }}</h3>
 	{% endif %}
 {% endblock %}

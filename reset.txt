@@ -4,6 +4,18 @@ php .\bin\console make:migration
 php .\bin\console doctrine:migrations:migrate -n -q
 php .\bin\console doctrine:fixtures:load -n -q
 
+TEST
+
+- jeżeli nie mamy utworzonej bazy
+php bin/console --env=test doctrine:database:create
+php bin/console --env=test doctrine:schema:create
+php bin/console --env=test doctrine:fixtures:load
+
+- jeżeli mamy już utworzoną bazę
+php bin/console --env=test doctrine:schema:drop -n -q --force --full-database
+php bin/console --env=test doctrine:schema:create
+php bin/console --env=test doctrine:fixtures:load
+
 Doctrine mapping, column unique
 
 https://www.doctrine-project.org/projects/doctrine-orm/en/2.13/reference/basic-mapping.html
