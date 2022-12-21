@@ -4,10 +4,11 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     private UserPasswordHasherInterface $hasher;
 
@@ -24,7 +25,7 @@ class UserFixtures extends Fixture
         $user_rolea->setFirstName('Andrzej');
         $user_rolea->setLastName('Szelka');
         $user_rolea->setActive(true);
-        $user_rolea->setOwner($this->getReference(AAOwnerFixtures::OWNER_REFERENCE));
+        $user_rolea->setOwner($this->getReference(OwnerFixtures::OWNER_REFERENCE));
         $password = $this->hasher->hashPassword($user_rolea, 'qwe123');
         $user_rolea->setPassword($password);
         $manager->persist($user_rolea);
@@ -35,11 +36,19 @@ class UserFixtures extends Fixture
         $user_roleu->setFirstName('Andrzej');
         $user_roleu->setLastName('Szelka');
         $user_roleu->setActive(true);
-        $user_roleu->setOwner($this->getReference(AAOwnerFixtures::OWNER_REFERENCE));
+        $user_roleu->setOwner($this->getReference(OwnerFixtures::OWNER_REFERENCE));
         $password = $this->hasher->hashPassword($user_roleu, 'qwe123');
         $user_roleu->setPassword($password);
         $manager->persist($user_roleu);
 
         $manager->flush();
+    }
+
+    /**
+     * @return list<class-string<FixtureInterface>>
+     */
+    public function getDependencies(): array
+    {
+        return [OwnerFixtures::class];
     }
 }

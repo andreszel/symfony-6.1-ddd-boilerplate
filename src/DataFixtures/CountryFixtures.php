@@ -6,7 +6,7 @@ use App\Entity\Country;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class ABCountryFixtures extends Fixture
+class CountryFixtures extends Fixture
 {
     public const COUNTRY_PL_REFERENCE = 'country_pl';
     public const COUNTRY_DE_REFERENCE = 'country_de';
@@ -28,4 +28,10 @@ class ABCountryFixtures extends Fixture
         $this->addReference(self::COUNTRY_PL_REFERENCE, $country_pl);
         $this->addReference(self::COUNTRY_DE_REFERENCE, $country_de);
     }
+
+    /* public function countryProvider()
+    {
+        yield ['Polska', 'pl_PL'];
+        yield ['Niemcy', 'de_DE'];
+    } */
 }
