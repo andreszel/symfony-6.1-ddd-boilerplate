@@ -41,7 +41,7 @@
 									</div>
 
 									<p class="small mb-5 pb-lg-2">
-										<a class="text-white-50" href="#!">Zapomniałem hasła?</a>
+										<a class="text-white-50" href="{{ path('app_forgot_password_request') }}">Zapomniałem hasła?</a>
 									</p>
 
 									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
