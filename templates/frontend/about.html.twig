@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<h1 class="header__h1">About ME</h1>
+	Current setted locale language:
+	{{ app.request.getLocale() }}
+
+	{% if app.user %}
+		<h3>
+			AUTHENTICATED OK - You are logged as
+			{{ app.user.email }}
+		</h3>
+	{% endif %}
+{% endblock %}

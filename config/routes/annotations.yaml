@@ -1,0 +1,14 @@
+controllers:
+  resource: '../../src/Controller/'
+  type: annotation
+  prefix:
+    pl: '' # don't prefix URLs for English, the default locale
+    en: '/en'
+    de: '/de'
+  defaults:
+    schemes: [http]
+  # these requirements are added to all imported routes
+  requirements:
+    _locale: 'pl|en|de'
+  # option to false is avoid trailing slash, change /blog/ to /blog
+  trailing_slash_on_root: false

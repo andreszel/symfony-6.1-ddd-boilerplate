@@ -1,0 +1,92 @@
+{% extends "backend.html.twig" %}
+
+{% block title %}
+	Pulpit - webpanel
+{% endblock %}
+
+{% block body %}
+	<h1 class="header__h1">Gym System Pro ver. 2.0</h1>
+	<h2 class="header__h2">Pulpit!</h2>
+	<a href="{{ app.user ? path('app_logout') : path('app_login') }}" class="btn btn-primary m-4">{{ app.user ? 'Wyloguj się' : 'Zaloguj się' }}</a>
+	<a href="{{ path('about_us') }}">About me</a>
+	<p class="d-flex p-2 bd-highlight">Bootstrap - test!</p>
+	<div class="d-flex p-2 bd-highlight">Jestem pojemnikiem Flexbox!</div>
+	<div class="d-inline-flex p-2 bd-highlight">Jestem wbudowanym kontenerem flexbox!</div>
+	<div class="d-flex flex-row bd-highlight mb-3">
+		<div class="p-2 bd-highlight">
+			{% trans %}Element elastyczny{% endtrans %}1
+		</div>
+		<div class="p-2 bd-highlight">{{ 'Element elastyczny'|trans }}
+			2</div>
+		<div class="p-2 bd-highlight">Element elastyczny 3</div>
+	</div>
+	<div class="d-flex flex-row-reverse bd-highlight">
+		<div class="p-2 bd-highlight">Element elastyczny 1</div>
+		<div class="p-2 bd-highlight">Element elastyczny 2</div>
+		<div class="p-2 bd-highlight">Element elastyczny 3</div>
+	</div>
+	<div class="d-flex bd-highlight">
+		<div class="p-2 flex-fill bd-highlight">Element elastyczny with a lot of content</div>
+		<div class="p-2 flex-fill bd-highlight">Element elastyczny</div>
+		<div class="p-2 flex-fill bd-highlight">Element elastyczny</div>
+	</div>
+
+	<div class="d-flex">
+		<div class="flex-shrink-0">
+			<img src="..." alt="...">
+		</div>
+		<div class="flex-grow-1 ms-3">
+			To jest część treści z komponentu multimedialnego. Możesz zastąpić to dowolną treścią i dostosować ją w razie potrzeby.
+		</div>
+	</div>
+
+	<div class="position-relative m-4">
+		<div class="progress" style="height: 1px;">
+			<div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">1</button>
+		<button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">2</button>
+		<button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">3</button>
+	</div>
+
+	<div class="shadow-none p-3 mb-5 bg-light rounded">Bez cienia</div>
+	<div class="shadow-sm p-3 mb-5 bg-body rounded">Mały cień</div>
+	<div class="shadow p-3 mb-5 bg-body rounded">Normalny cień</div>
+	<div class="shadow-lg p-3 mb-5 bg-body rounded">Duży cień</div>
+
+	<p class="fs-1">.fs-1 text</p>
+	<p class="fs-2">.fs-2 text</p>
+	<p class="fs-3">.fs-3 text</p>
+	<p class="fs-4">.fs-4 text</p>
+	<p class="fs-5">.fs-5 text</p>
+	<p class="fs-6">.fs-6 text</p>
+
+	<hr>
+
+	<h2 class="header__h2">Przykładowy formularz w Bootstrap</h2>
+	<form>
+		<div class="mb-3">
+			<label for="exampleInputEmail1" class="form-label">Adres email</label>
+			<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+			<div id="emailHelp" class="form-text">Nie udostępniaj nikomu swojego adresu email.</div>
+		</div>
+		<div class="mb-3">
+			<label for="exampleInputPassword1" class="form-label">Hasło</label>
+			<input type="password" class="form-control" id="exampleInputPassword1">
+		</div>
+		<div class="mb-3 form-check">
+			<input type="checkbox" class="form-check-input" id="exampleCheck1">
+			<label class="form-check-label" for="exampleCheck1">Pole typu checkbox</label>
+		</div>
+		<button type="submit" class="btn btn-primary">Wyśwlij</button>
+	</form>
+
+	<label for="exampleColorInput" class="form-label">Zmiana koloru</label>
+	<input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c" title="Choose your color">
+
+	{% if app.user %}
+		<h3>Autentykacja jest ok - Jesteś zalogowany jako
+			{{ app.user.email }}
+		</h3>
+	{% endif %}
+{% endblock %}
