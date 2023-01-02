@@ -18,7 +18,3 @@ const $ = require('jquery');
 require('bootstrap');
 
 console.log("Test webpack encore!");
-
-$(document).ready(function() {
-    $('[data-toggle="popover"]').popover();
-});

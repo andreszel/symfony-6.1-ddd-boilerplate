@@ -48,7 +48,7 @@
 						</li>
 						<li><hr class="dropdown-divider"/></li>
 						<li>
-							<a class="dropdown-item" href="/{{ app.user ? 'logout' : 'login' }}">{{ app.user ? 'Wyloguj się' : 'Zaloguj się' }}</a>
+							<a class="dropdown-item" href="{{ app.user ? path('app_logout') : path('app_login') }}">{{ app.user ? 'Wyloguj się' : 'Zaloguj się' }}</a>
 						</li>
 					</ul>
 				</li>

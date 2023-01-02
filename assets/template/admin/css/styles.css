@@ -11699,3 +11699,11 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
+
+.background-custom {
+  background: url('../../../images/layout/background-1.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
