@@ -5,6 +5,10 @@
 	<h2 class="header__h2">Something yet!</h2>
 	<a href="{{ app.user ? path('app_logout') : path('app_login') }}" class="btn btn-primary m-4">{{ app.user ? 'Wyloguj się' : 'Zaloguj się' }}</a>
 	<p class="d-flex p-2 bd-highlight">Bootstrap - Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus debitis, quasi, doloribus esse voluptas corporis non minus error molestias sapiente vero. Deserunt fuga enim assumenda dignissimos ab eveniet dolorem quaerat!</p>
+	<p>
+		Current locale:
+		{{ locale }}
+	</p>
 
 	{% if app.user %}
 		<h3>AUTHENTICATED OK - You are logged as

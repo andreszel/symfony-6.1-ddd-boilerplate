@@ -14,6 +14,31 @@
 		<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 	</head>
 	<body>
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="position:fixed;top:50px;right:50px;">Zmień język</button>
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form action="{{ path('app_select_language_switcher')}}">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Wybór języka</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<select class="form-select" name="language" aria-label="Zmień język">
+								<option value="pl">polski</option>
+								<option value="en">angielski</option>
+								<option value="de">niemiecki</option>
+							</select>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<input type="submit" class="btn btn-primary" value="Zmień"/>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
 		{% block body %}{% endblock %}
 
 		{% block javascripts %}

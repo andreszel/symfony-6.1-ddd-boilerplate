@@ -50,7 +50,7 @@ class RegistrationController extends AbstractController
                 'app_verify_email',
                 $user,
                 (new TemplatedEmail())
-                    ->from(new Address('szelkaandrzej@gmail.com', 'Gym System Pro'))
+                    ->from(new Address($this->getParameter('app.admin_email'), 'Gym System Pro'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
