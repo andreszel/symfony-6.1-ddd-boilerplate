@@ -4,10 +4,17 @@ controllers:
     namespace: App\Controller
   type: attribute
 
-about_us:
+app_about_us:
   path:
     pl: /{_locale}/o-nas
     en: /{_locale}/about-us
-    nl: /{_locale}/over-ons
+    de: /{_locale}/uber-uns
   controller: App\Controller\HomeController::about
   methods: GET|HEAD
+
+app_login:
+  path:
+    pl: /{_locale}/zaloguj-sie
+    en: /{_locale}/login
+    de: /{_locale}/einlogen
+  controller: App\Controller\SecurityController::login

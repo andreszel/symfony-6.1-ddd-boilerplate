@@ -1,10 +1,10 @@
 controllers:
   resource: '../../src/Controller/'
   type: annotation
-  prefix:
-    pl: '' # don't prefix URLs for English, the default locale
-    en: '/en'
-    de: '/de'
+  #prefix:
+  #pl: '' # don't prefix URLs for English, the default locale
+  #en: '/en'
+  #de: '/de'
   defaults:
     schemes: [http]
   # these requirements are added to all imported routes
