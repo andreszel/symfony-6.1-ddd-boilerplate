@@ -5,8 +5,11 @@ namespace App\Entity;
 use App\Repository\UserLogRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 #[ORM\Entity(repositoryClass: UserLogRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class UserLog
 {
     #[ORM\Id]
@@ -31,11 +34,25 @@ class UserLog
     #[ORM\JoinColumn(nullable: false)]
     private ?LogType $logType = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
+    #[Gedmo\Timestampable(on: 'create')]
+    #[ORM\Column(nullable: false, type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdAt;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: 'update')]
+    #[ORM\Column(nullable: true, type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {

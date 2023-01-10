@@ -26,6 +26,9 @@ security:
         secret: '%kernel.secret%' # required
         lifetime: 604800 # 1 week in seconds
         path: /
+      entry_point: App\Security\AuthenticationEntryPoint
+      access_denied_handler:
+        App\Security\AccessDeniedHandler
         # from fields generate custom properties hash
         # signature_properties: ["password", "updatedAt"]
         # by default, the feature is enabled by checking a
@@ -46,7 +49,15 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-    # - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/(pl|en|de)/admin, roles: ROLE_ADMIN }
+    - { path: ^/(pl|en|de)/admin/test, roles: ROLE_SUPERADMIN }
+    - {
+        path: ^/(pl|en|de)/support,
+        roles: PUBLIC_ACCESS,
+        port: 8080,
+        requires_channel: https,
+      }
+    - { path: ^/(pl|en|de)/admin/user, roles: ROLE_SUPERADMIN }
     # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

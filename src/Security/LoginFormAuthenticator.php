@@ -2,6 +2,10 @@
 
 namespace App\Security;
 
+use App\Entity\LogType;
+use App\Entity\User;
+use App\Entity\UserLog;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,9 +26,11 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
     public const REDIRECT_AFTER_LOGIN_ROUTE = 'app_dashboard';
+    private $entityManager;
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(private UrlGeneratorInterface $urlGenerator, EntityManagerInterface $entityManager)
     {
+        $this->entityManager =  $entityManager;
     }
 
     public function authenticate(Request $request): Passport
@@ -34,6 +40,23 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         $csrfToken = $request->request->get('_csrf_token');
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
+
+        $session = $request->getSession();
+
+        $logTypeRepository = $this->entityManager->getRepository(LogType::class);
+        $logType = $logTypeRepository->findOneBy(['isLogin' => true]);
+        $userRepository = $this->entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['email' => $email]);
+
+        $userLog = new UserLog();
+        $userLog->setSessionId($session->getId());
+        $userLog->setRemoteAddr($request->getClientIp());
+        $userLog->setUserAgent($request->headers->get('User-Agent'));
+        $userLog->setLogType($logType);
+        $userLog->setUser($user);
+
+        $this->entityManager->persist($userLog);
+        $this->entityManager->flush();
 
         return new Passport(
             new UserBadge($email),

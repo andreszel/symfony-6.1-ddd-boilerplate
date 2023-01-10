@@ -1,0 +1,14 @@
+{% if test == 'test 1' or test == 'test 555' %}
+	<h3 class="header__h1">if the controller is associated with a route, use the path() functions</h3>
+{% elseif test == 'test 2' %}
+	<h3 class="header__h1">if the controller is associated with a route, use the url() functions</h3>
+{% elseif test == 'test 3' %}
+	<h3 class="header__h1">use the controller() function</h3>
+{% else %}
+	<h3 class="header__h1">Somthing went wrong! What is it?</h3>
+{% endif %}
+
+<p>
+	Otrzymany typ:
+	{{ test }}
+</p>

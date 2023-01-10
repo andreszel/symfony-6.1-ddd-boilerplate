@@ -21,6 +21,12 @@ class LogType
     #[ORM\OneToMany(mappedBy: 'logType', targetEntity: UserLog::class)]
     private Collection $userLogs;
 
+    #[ORM\Column(nullable: false, options: ["default" => false])]
+    private ?bool $isLogin = null;
+
+    #[ORM\Column(nullable: false, options: ["default" => false])]
+    private ?bool $isLogout = null;
+
     public function __construct()
     {
         $this->userLogs = new ArrayCollection();
@@ -69,6 +75,30 @@ class LogType
                 $userLog->setLogType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsLogin(): ?bool
+    {
+        return $this->isLogin;
+    }
+
+    public function setIsLogin(bool $isLogin): self
+    {
+        $this->isLogin = $isLogin;
+
+        return $this;
+    }
+
+    public function isIsLogout(): ?bool
+    {
+        return $this->isLogout;
+    }
+
+    public function setIsLogout(bool $isLogout): self
+    {
+        $this->isLogout = $isLogout;
 
         return $this;
     }

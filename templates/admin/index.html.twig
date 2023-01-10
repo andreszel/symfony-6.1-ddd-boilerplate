@@ -1,4 +1,4 @@
-{% extends "backend.html.twig" %}
+{% extends "base_admin.html.twig" %}
 
 {% block title %}
 	Pulpit - webpanel
@@ -8,7 +8,20 @@
 	<h1 class="header__h1">Gym System Pro ver. 2.0</h1>
 	<h2 class="header__h2">Pulpit!</h2>
 	<a href="{{ app.user ? path('app_logout') : path('app_login') }}" class="btn btn-primary m-4">{{ app.user ? 'Wyloguj się' : 'Zaloguj się' }}</a>
-	<a href="{{ path('about_us') }}">About me</a>
+
+	{{ include('flash_message/_all.html.twig') }}
+
+	<hr/>
+	{# if the controller is associated with a route, use the path() or url() functions #}
+	{{ render(path('admin_test_render_function', {test: "test 1"})) }}
+	{{ render(url('admin_test_render_function', {test: "test 2"})) }}
+	{# if you don't want to expose the controller with a public URL, use the controller() function to define the controller to execute #}
+	{{ render(controller(
+        'App\\Controller\\AdminController::testRenderFunction', {test: "test 3"}
+    )) }}
+	<hr/>
+
+	<a href="{{ path('app_about_us.en') }}">About me</a>
 	<p class="d-flex p-2 bd-highlight">Bootstrap - test!</p>
 	<div class="d-flex p-2 bd-highlight">Jestem pojemnikiem Flexbox!</div>
 	<div class="d-inline-flex p-2 bd-highlight">Jestem wbudowanym kontenerem flexbox!</div>

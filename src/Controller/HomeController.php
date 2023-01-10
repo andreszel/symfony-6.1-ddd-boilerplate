@@ -2,25 +2,27 @@
 
 namespace App\Controller;
 
+use App\Entity\UserLog;
+use App\Repository\UserLogRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HomeController extends AbstractController implements CheckSettedLocalInUrlController
 {
     private $translator;
-
-    private $localeSwitcher;
+    private $entityManager;
 
     public function __construct(
-        LocaleSwitcher $localeSwitcher,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        EntityManagerInterface $entityManager
     ) {
         $this->translator = $translator;
-        $this->localeSwitcher = $localeSwitcher;
+        $this->entityManager = $entityManager;
     }
 
     #[Route('/')]
@@ -34,27 +36,6 @@ class HomeController extends AbstractController implements CheckSettedLocalInUrl
     {
         $locale = $request->getLocale();
         return $this->render('frontend/index.html.twig', ['locale' => $locale]);
-    }
-
-    #[Route('/{_locale}/dashboard', name: 'app_dashboard')]
-    public function dashboard(): Response
-    {
-        // pobieramy aktualnie ustawiony język
-        $currentLocale = $this->localeSwitcher->getLocale();
-
-        // ustawiamy język język
-        //$this->localeSwitcher->setLocale('en');
-
-        // Jeżeli chcemy coś przetłumaczyć pomimo ustawienia innego języka, np. default locale : pl na język angielski
-        // możemy to zrobić w takim bloku
-        /* $this->localeSwitcher->runWithLocale('en', function () {
-            dump($this->localeSwitcher->getLocale());
-            dump($this->translator->trans('Test tłumaczenia'));
-        }); */
-
-        dump($currentLocale);
-
-        return $this->render('backend/index.html.twig');
     }
 
     public function about(): Response
